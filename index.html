@@ -53,6 +53,19 @@
       .add("Ellie/Frames/Ellie frame_idle_1.png")
       .add("Ellie/Frames/Ellie frame_idle_2.png")
       .add("Ellie/Frames/Ellie frame_idle_3.png")
+      .add("Ellie/Frames/Ellie frame_run_00.png")
+      .add("Ellie/Frames/Ellie frame_run_01.png")
+      .add("Ellie/Frames/Ellie frame_run_02.png")
+      .add("Ellie/Frames/Ellie frame_run_03.png")
+      .add("Ellie/Frames/Ellie frame_run_04.png")
+      .add("Ellie/Frames/Ellie frame_run_05.png")
+      .add("Ellie/Frames/Ellie frame_run_06.png")
+      .add("Ellie/Frames/Ellie frame_run_07.png")
+      .add("Ellie/Frames/Ellie frame_run_08.png")
+      .add("Ellie/Frames/Ellie frame_run_09.png")
+      .add("Ellie/Frames/Ellie frame_run_10.png")
+      .add("Ellie/Frames/Ellie frame_run_11.png")
+      .add("Ellie/Frames/Ellie frame_run_12.png")
       .on("progress", loadProgress)
       .load(setup);
       //monitor loading progress
@@ -62,18 +75,33 @@
         console.log("progress" + loader.progress + "%");
       }
       function setup(){
-        let urlPadding = "Ellie/Frames/", Ellie_idle = [];
+        //idle
+        let Ellie_spirit  = "Ellie/Frames/", idle_array = [];
         for (let $e = 0; $e < 3; $e++){
-          Ellie_idle.push(urlPadding + "Ellie frame_idle_"+($e+1)+".png");
+          idle_array.push(Ellie_spirit + "Ellie frame_idle_"+($e+1)+".png");
         }
 
-        // let Ellie = new PIXI.Sprite(PIXI.loader.resources["Ellie/Frames/Ellie frame_idle_0.png"].texture);
-        let Ellie = new PIXI.extras.AnimatedSprite.fromImages(Ellie_idle)
+        //run
+        let run_array = [];
+        for (let $e = 0; $e < 12; $e++){
+          run_array.push(Ellie_spirit + "Ellie frame_run_"+($e+1)+".png");
+        }
 
-        app.stage.addChild(Ellie);
+
+        // let Ellie = new PIXI.Sprite(PIXI.loader.resources["Ellie/Frames/Ellie frame_idle_0.png"].texture);
+        let Ellie = new PIXI.extras.AnimatedSprite.fromImages(idle_array)
+        let Ellie_run = new PIXI.extras.AnimatedSprite.fromImages(run_array)
+        app.stage.addChild(Ellie, Ellie_run);
+
+
         Ellie.animationSpeed = 0.1;
         Ellie.play();
-        Ellie.position.set(290,297)
+        Ellie.position.set(500,300);
+
+        Ellie_run.animationSpeed = 0.1;
+        Ellie_run.play();
+        Ellie_run.position.set(500,100);
+
 
       };
 
