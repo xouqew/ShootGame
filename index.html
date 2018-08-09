@@ -4,6 +4,7 @@
 
     <script type="text/javascript" src="JS/pixi.js"></script>
 
+
     <meta charset="utf-8">
     <title></title>
   </head>
@@ -15,6 +16,8 @@
     </style>
 
     <script type="text/javascript">
+    let Ellie, Ellie_run, state;
+
       let type = "WebGL";
       if (!PIXI.utils.isWebGLSupported()) {
         type = "canvas";
@@ -41,33 +44,8 @@
       app.renderer.backgroundColor = 0x34495e;
 
       //
+      document.body.appendChild(app.view),PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_00.png").add("Ellie/Frames/Ellie frame_run_01.png").add("Ellie/Frames/Ellie frame_run_02.png").add("Ellie/Frames/Ellie frame_run_03.png").add("Ellie/Frames/Ellie frame_run_04.png").add("Ellie/Frames/Ellie frame_run_05.png").add("Ellie/Frames/Ellie frame_run_06.png").add("Ellie/Frames/Ellie frame_run_07.png").add("Ellie/Frames/Ellie frame_run_08.png").add("Ellie/Frames/Ellie frame_run_09.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").on("progress",loadProgress).load(setup);
 
-
-
-
-
-
-      document.body.appendChild(app.view)
-      PIXI.loader
-      .add("Ellie/Frames/Ellie frame_idle_0.png")
-      .add("Ellie/Frames/Ellie frame_idle_1.png")
-      .add("Ellie/Frames/Ellie frame_idle_2.png")
-      .add("Ellie/Frames/Ellie frame_idle_3.png")
-      .add("Ellie/Frames/Ellie frame_run_00.png")
-      .add("Ellie/Frames/Ellie frame_run_01.png")
-      .add("Ellie/Frames/Ellie frame_run_02.png")
-      .add("Ellie/Frames/Ellie frame_run_03.png")
-      .add("Ellie/Frames/Ellie frame_run_04.png")
-      .add("Ellie/Frames/Ellie frame_run_05.png")
-      .add("Ellie/Frames/Ellie frame_run_06.png")
-      .add("Ellie/Frames/Ellie frame_run_07.png")
-      .add("Ellie/Frames/Ellie frame_run_08.png")
-      .add("Ellie/Frames/Ellie frame_run_09.png")
-      .add("Ellie/Frames/Ellie frame_run_10.png")
-      .add("Ellie/Frames/Ellie frame_run_11.png")
-      .add("Ellie/Frames/Ellie frame_run_12.png")
-      .on("progress", loadProgress)
-      .load(setup);
       //monitor loading progress
       function loadProgress(loader, resource){
         console.log("loading" + resource.url);
@@ -75,8 +53,7 @@
         console.log("progress" + loader.progress + "%");
       }
 
-      let Ellie;
-      let Ellie_run;
+
 
       function setup(){
         //idle
@@ -96,6 +73,9 @@
         Ellie = new PIXI.extras.AnimatedSprite.fromImages(idle_array)
         Ellie_run = new PIXI.extras.AnimatedSprite.fromImages(run_array)
         app.stage.addChild(Ellie, Ellie_run);
+
+        state = play;
+
         app.ticker.add(delta => gameLoop(delta));
 
         Ellie.animationSpeed = 0.1;
@@ -105,14 +85,27 @@
 
         Ellie_run.animationSpeed = 0.1;
         Ellie_run.play();
+        //intital speed
+        Ellie_run.vx= 0;
+        Ellie_run.vy= 0;
         Ellie_run.position.set(500,100);
 
 
       };
 
       function gameLoop(delta){
-        Ellie_run.x += 4;
+      state(delta);
       }
+
+      function play(delta){
+        Ellie_run.vx = 4;
+        Ellie_run.vy= 2;
+        Ellie_run.x += Ellie_run.vx;
+        Ellie_run.y += Ellie_run.vy;
+      }
+
+      function keyboard(keyCode){}
+
 
       //
       // function pageUpdate(){
