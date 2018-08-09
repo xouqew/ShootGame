@@ -74,6 +74,10 @@
 
         console.log("progress" + loader.progress + "%");
       }
+
+      let Ellie;
+      let Ellie_run;
+
       function setup(){
         //idle
         let Ellie_spirit  = "Ellie/Frames/", idle_array = [];
@@ -89,14 +93,15 @@
 
 
         // let Ellie = new PIXI.Sprite(PIXI.loader.resources["Ellie/Frames/Ellie frame_idle_0.png"].texture);
-        let Ellie = new PIXI.extras.AnimatedSprite.fromImages(idle_array)
-        let Ellie_run = new PIXI.extras.AnimatedSprite.fromImages(run_array)
+        Ellie = new PIXI.extras.AnimatedSprite.fromImages(idle_array)
+        Ellie_run = new PIXI.extras.AnimatedSprite.fromImages(run_array)
         app.stage.addChild(Ellie, Ellie_run);
-
+        app.ticker.add(delta => gameLoop(delta));
 
         Ellie.animationSpeed = 0.1;
         Ellie.play();
         Ellie.position.set(500,300);
+
 
         Ellie_run.animationSpeed = 0.1;
         Ellie_run.play();
@@ -105,7 +110,9 @@
 
       };
 
-
+      function gameLoop(delta){
+        Ellie_run.x += 4;
+      }
 
       //
       // function pageUpdate(){
