@@ -6,7 +6,7 @@
 
 
     <meta charset="utf-8">
-    <title></title>
+    <title>ShootGame</title>
   </head>
   <body>
 
@@ -68,11 +68,19 @@
           run_array.push(Ellie_spirit + "Ellie frame_run_"+($e+1)+".png");
         }
 
+        //arrow key
+        let left = keyboard(65),
+            up = keyboard(38),
+            right = keyboard(68),
+            down = keyboard(40);
+
+        //left arrow
+
 
         // let Ellie = new PIXI.Sprite(PIXI.loader.resources["Ellie/Frames/Ellie frame_idle_0.png"].texture);
         Ellie = new PIXI.extras.AnimatedSprite.fromImages(idle_array)
         Ellie_run = new PIXI.extras.AnimatedSprite.fromImages(run_array)
-        app.stage.addChild(Ellie, Ellie_run);
+        app.stage.addChild(Ellie);
 
         state = play;
 
@@ -81,15 +89,32 @@
         Ellie.animationSpeed = 0.1;
         Ellie.play();
         Ellie.position.set(500,300);
+        Ellie.vx = 0;
+        Ellie.vy = 0;
 
 
-        Ellie_run.animationSpeed = 0.1;
-        Ellie_run.play();
-        //intital speed
-        Ellie_run.vx= 0;
-        Ellie_run.vy= 0;
-        Ellie_run.position.set(500,100);
 
+        right.press = () =>{
+          Ellie_run.vx = 5;
+          Ellie_run.vy = 0;
+
+          Ellie_run.animationSpeed = 0.1;
+          Ellie_run.play();
+          app.stage.removeChild(Ellie);
+          app.stage.addChild(Ellie_run);
+          Ellie_run.position.set(500,300);
+          console.log('test');
+        }
+
+        right.release = () =>{
+          if(!left.isDown && Ellie_run.vy === 0){
+
+            Ellie_run.vx = 0;
+            app.stage.addChild(Ellie);
+            app.stage.removeChild(Ellie_run);
+            Ellie_run.position;
+          }
+        }
 
       };
 
@@ -98,13 +123,44 @@
       }
 
       function play(delta){
-        Ellie_run.vx = 4;
-        Ellie_run.vy= 2;
         Ellie_run.x += Ellie_run.vx;
-        Ellie_run.y += Ellie_run.vy;
+        Ellie_run.x += Ellie_run.vy;
+
       }
 
-      function keyboard(keyCode){}
+      function keyboard(keyCode){
+        let key = {};
+        key.code = keyCode;
+        key.isDown = false;
+        key.isUp = true;
+        key.press = undefined;
+        key.release = undefined;
+
+        key.downHandler = event =>{
+          if (event.keyCode === key.code){
+            if(key.isUp && key.press)key.press();
+            key.isDown = true;
+            key.isUp = false;
+          };
+          event.preventDefault();
+        };
+
+        key.upHandler = event => {
+          if (event.keyCode === key.code) {
+          if (key.isDown && key.release) key.release();
+          key.isDown = false;
+          key.isUp = true;
+        };
+        event.preventDefault();
+        };
+
+        window.addEventListener("keydown", key.downHandler.bind(key), false);
+        window.addEventListener("keyup", key.upHandler.bind(key), false);
+        return key;
+
+
+
+      };
 
 
       //
