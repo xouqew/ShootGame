@@ -50,7 +50,7 @@
       app.renderer.backgroundColor = 0x34495e;
 
       //
-      document.body.appendChild(app.view),PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_00.png").add("Ellie/Frames/Ellie frame_run_01.png").add("Ellie/Frames/Ellie frame_run_02.png").add("Ellie/Frames/Ellie frame_run_03.png").add("Ellie/Frames/Ellie frame_run_04.png").add("Ellie/Frames/Ellie frame_run_05.png").add("Ellie/Frames/Ellie frame_run_06.png").add("Ellie/Frames/Ellie frame_run_07.png").add("Ellie/Frames/Ellie frame_run_08.png").add("Ellie/Frames/Ellie frame_run_09.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").on("progress",loadProgress).load(setup);
+      document.body.appendChild(app.view),PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_00.png").add("Ellie/Frames/Ellie frame_run_01.png").add("Ellie/Frames/Ellie frame_run_02.png").add("Ellie/Frames/Ellie frame_run_03.png").add("Ellie/Frames/Ellie frame_run_04.png").add("Ellie/Frames/Ellie frame_run_05.png").add("Ellie/Frames/Ellie frame_run_06.png").add("Ellie/Frames/Ellie frame_run_07.png").add("Ellie/Frames/Ellie frame_run_08.png").add("Ellie/Frames/Ellie frame_run_09.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").on("progress",loadProgress).load(setup);
 
 
       //Bullet
@@ -69,6 +69,15 @@
       wall.endFill();
       app.stage.addChild(wall);
       wall.position.set(1000,400);
+
+      //box
+      let box = new PIXI.Graphics();
+      box.beginFill(0xe74c3c);
+      box.lineStyle(4, 0xe74c3c, 1);
+      box.drawRect(0,12,128,50);
+      box.endFill();
+      app.stage.addChild(box);
+      box.position.set(1100,400);
 
       //name
       let name_style = new PIXI.TextStyle({
@@ -115,6 +124,13 @@
           aim_array.push(Ellie_spirit + "Ellie frame_aim_"+($e+1)+".png");
         }
 
+
+        let die_array = [];
+        for (let $e = 0; $e<6 ; $e++) {
+          die_array.push(Ellie_spirit + "Ellie frame_death_"+($e+1)+".png");
+
+        }
+
         //arrow key
         let left = keyboard(65),
             up = keyboard(38),
@@ -131,6 +147,7 @@
         Ellie_run = new PIXI.extras.AnimatedSprite.fromImages(run_array);
         Ellie_shoot = new PIXI.extras.AnimatedSprite.fromImages(shoot_array);
         Ellie_aim = new PIXI.extras.AnimatedSprite.fromImages(aim_array);
+        Ellie_die = new PIXI.extras.AnimatedSprite.fromImages(die_array);
         app.stage.addChild(Ellie);
 
         state = play;
@@ -285,8 +302,19 @@
         //collision detect
         if (hitTestRectangle(Ellie_run, wall)) {
         console.log('123');
-        app.stage.addChild(Ellie);
+        app.stage.addChild(Ellie_die);
+        Ellie_die.animationSpeed = 0.1;
+        Ellie_die.play();
+        Ellie_die.x = Ellie_run.x;
+        Ellie_die.y = Ellie_run.y;
+        Ellie_die.play();
         app.stage.removeChild(Ellie_run);
+
+        }
+
+        if (hitTestRectangle(Ellie_die, box)) {
+          Ellie_die.stop();
+
         }
 
       }
