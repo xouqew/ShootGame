@@ -24,11 +24,20 @@
 
 
 
+
       let type = "WebGL";
       if (!PIXI.utils.isWebGLSupported()) {
         type = "canvas";
 
       };
+
+
+      let Container = PIXI.Container,
+          loader = PIXI.loader,
+          resources = PIXI.loader.resources,
+          TextureCache = PIXI.utils.TextureCache,
+          Sprite = PIXI.Sprite,
+          Rectangle = PIXI.Rectangle;
 
       PIXI.utils.sayHello(type);
       // let texture = PIXI.utils.TextureCache["Ellie/GIF/idle.gif"];
@@ -50,7 +59,7 @@
       app.renderer.backgroundColor = 0x34495e;
 
       //
-      document.body.appendChild(app.view),PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_00.png").add("Ellie/Frames/Ellie frame_run_01.png").add("Ellie/Frames/Ellie frame_run_02.png").add("Ellie/Frames/Ellie frame_run_03.png").add("Ellie/Frames/Ellie frame_run_04.png").add("Ellie/Frames/Ellie frame_run_05.png").add("Ellie/Frames/Ellie frame_run_06.png").add("Ellie/Frames/Ellie frame_run_07.png").add("Ellie/Frames/Ellie frame_run_08.png").add("Ellie/Frames/Ellie frame_run_09.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").on("progress",loadProgress).load(setup);
+      document.body.appendChild(app.view),PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_00.png").add("Ellie/Frames/Ellie frame_run_01.png").add("Ellie/Frames/Ellie frame_run_02.png").add("Ellie/Frames/Ellie frame_run_03.png").add("Ellie/Frames/Ellie frame_run_04.png").add("Ellie/Frames/Ellie frame_run_05.png").add("Ellie/Frames/Ellie frame_run_06.png").add("Ellie/Frames/Ellie frame_run_07.png").add("Ellie/Frames/Ellie frame_run_08.png").add("Ellie/Frames/Ellie frame_run_09.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").add("Ellie/Spritesheet/Zombie_SpriteSheet.png").on("progress",loadProgress).load(setup);
 
 
       //Bullet
@@ -77,7 +86,7 @@
       box.drawRect(0,12,128,50);
       box.endFill();
       app.stage.addChild(box);
-      box.position.set(1100,400);
+
 
       //name
       let name_style = new PIXI.TextStyle({
@@ -90,6 +99,27 @@
       app.stage.addChild(name);
       name.position.set(570,300);
 
+
+      //zombie
+
+      let zombie_texture = TextureCache["Ellie/Spritesheet/Zombie_SpriteSheet.png"];
+
+
+      let rectangle = new Rectangle(64, 0, 64, 64);
+
+
+      zombie_texture.frame = rectangle;
+
+
+      let zombie = new Sprite(zombie_texture);
+
+
+
+
+      zombie.position.set(1100,400);
+
+
+      app.stage.addChild(zombie);
       //monitor loading progress
       function loadProgress(loader, resource){
         console.log("loading" + resource.url);
@@ -159,6 +189,9 @@
         Ellie.position.set(500,300);
         Ellie.vx = 0;
         Ellie.vy = 0;
+
+
+
 
 
 
@@ -312,7 +345,7 @@
 
         }
 
-        if (hitTestRectangle(Ellie_die, box)) {
+        if (hitTestRectangle(Ellie_die, zombie)) {
           Ellie_die.stop();
 
         }

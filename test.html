@@ -1,19 +1,23 @@
-<script type="text/javascript" src="JS/pixi.js"></script>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+<!doctype html>
+<meta charset="utf-8">
+<title>Make a sprite from a texture atlas</title>
+<body>
+<script src="JS/pixi.js"></script>
+<script>
 
-  </body>
-</html>
-<script type="text/javascript">
+//Aliases
+let Application = PIXI.Application,
+    Container = PIXI.Container,
+    loader = PIXI.loader,
+    resources = PIXI.loader.resources,
+    TextureCache = PIXI.utils.TextureCache,
+    Sprite = PIXI.Sprite,
+    Rectangle = PIXI.Rectangle;
+
 //Create a Pixi Application
-let app = new PIXI.Application({
-    width: 256,
-    height: 256,
+let app = new Application({
+    width: 512,
+    height: 512,
     antialias: true,
     transparent: false,
     resolution: 1
@@ -23,18 +27,33 @@ let app = new PIXI.Application({
 //Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);
 
-//load an image and run the `setup` function when it's done
-PIXI.loader
-  .add("Ellie/GIF/idle.gif")
+//load a JSON file and run the `setup` function when it's done
+loader
+  .add("Ellie/Spritesheet/Zombie_SpriteSheet.png")
   .load(setup);
 
-//This `setup` function will run when the image has loaded
-function setup() {
+  function setup() {
 
-  //Create the cat sprite
-  let cat = new PIXI.Sprite(PIXI.loader.resources["Ellie/GIF/idle.gif"].texture);
 
-  //Add the cat to the stage
-  app.stage.addChild(cat);
-}
+    let zombie_texture = TextureCache["Ellie/Spritesheet/Zombie_SpriteSheet.png"];
+
+
+    let rectangle = new Rectangle(64, 0, 64, 64);
+
+
+    zombie_texture.frame = rectangle;
+
+
+    let zombie = new Sprite(zombie_texture);
+
+
+    zombie.x = 32;
+    zombie.y = 32;
+
+
+    app.stage.addChild(zombie);
+    renderer.render(stage);
+  }
+
 </script>
+</body>
