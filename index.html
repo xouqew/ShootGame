@@ -71,13 +71,13 @@
       app.stage.addChild(bullet);
 
       //Wall
-      let wall = new PIXI.Graphics();
-      wall.beginFill(0xe74c3c);
-      wall.lineStyle(4, 0xe74c3c, 1);
-      wall.drawCircle(0,12,128,50);
-      wall.endFill();
-      app.stage.addChild(wall);
-      wall.position.set(1000,400);
+      // let wall = new PIXI.Graphics();
+      // wall.beginFill(0xe74c3c);
+      // wall.lineStyle(4, 0xe74c3c, 1);
+      // wall.drawCircle(0,12,128,50);
+      // wall.endFill();
+      // app.stage.addChild(wall);
+      // wall.position.set(1000,400);
 
       //box
       let box = new PIXI.Graphics();
@@ -100,26 +100,7 @@
       name.position.set(570,300);
 
 
-      //zombie
 
-      let zombie_texture = TextureCache["Ellie/Spritesheet/Zombie_SpriteSheet.png"];
-
-
-      let rectangle = new Rectangle(64, 0, 64, 64);
-
-
-      zombie_texture.frame = rectangle;
-
-
-      let zombie = new Sprite(zombie_texture);
-
-
-
-
-      zombie.position.set(1100,400);
-
-
-      app.stage.addChild(zombie);
       //monitor loading progress
       function loadProgress(loader, resource){
         console.log("loading" + resource.url);
@@ -332,8 +313,29 @@
         Ellie_run.x += Ellie_run.vx;
         Ellie_run.x += Ellie_run.vy;
 
+        //zombie
+
+        let zombie_texture = TextureCache["Ellie/Spritesheet/Zombie_SpriteSheet.png"];
+
+
+        let rectangle = new Rectangle(64, 0, 64, 64);
+
+
+        zombie_texture.frame = rectangle;
+
+
+        let zombie = new Sprite(zombie_texture);
+
+
+
+
+        zombie.position.set(1100,400);
+
+
+        app.stage.addChild(zombie);
+
         //collision detect
-        if (hitTestRectangle(Ellie_run, wall)) {
+        if (hitTestRectangle(Ellie_run, zombie)) {
         console.log('123');
         app.stage.addChild(Ellie_die);
         Ellie_die.animationSpeed = 0.1;
@@ -345,10 +347,7 @@
 
         }
 
-        if (hitTestRectangle(Ellie_die, zombie)) {
-          Ellie_die.stop();
 
-        }
 
       }
 
