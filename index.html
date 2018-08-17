@@ -58,7 +58,12 @@
       app.renderer.resize(window.innerWidth, window.innerHeight);
       app.renderer.backgroundColor = 0x34495e;
 
-      //
+      //The spirits images  below has been sourced from
+      //https://stensven.itch.io/zombie
+      //and
+      //https://petey90.itch.io/ellie-sprite-sheet
+      
+
       document.body.appendChild(app.view),PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_00.png").add("Ellie/Frames/Ellie frame_run_01.png").add("Ellie/Frames/Ellie frame_run_02.png").add("Ellie/Frames/Ellie frame_run_03.png").add("Ellie/Frames/Ellie frame_run_04.png").add("Ellie/Frames/Ellie frame_run_05.png").add("Ellie/Frames/Ellie frame_run_06.png").add("Ellie/Frames/Ellie frame_run_07.png").add("Ellie/Frames/Ellie frame_run_08.png").add("Ellie/Frames/Ellie frame_run_09.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").add("Ellie/Spritesheet/Zombie_SpriteSheet.png").on("progress",loadProgress).load(setup);
 
 
@@ -68,7 +73,7 @@
       bullet.lineStyle(4, 0xe74c3c, 1);
       bullet.drawRect(0,0, 32, 6);
       bullet.endFill();
-      app.stage.addChild(bullet);
+
 
       //Wall
       // let wall = new PIXI.Graphics();
@@ -85,8 +90,6 @@
       box.lineStyle(4, 0xe74c3c, 1);
       box.drawRect(0,12,128,50);
       box.endFill();
-      app.stage.addChild(box);
-
 
       //name
       let name_style = new PIXI.TextStyle({
@@ -95,7 +98,7 @@
         fill: "white",
 
       });
-      let name = new PIXI.Text('Click D to start',name_style);
+      let name = new PIXI.Text('',name_style);
       app.stage.addChild(name);
       name.position.set(570,300);
 
@@ -257,57 +260,62 @@
       }
 
 
-//collsion test function
-      function hitTestRectangle(r1, r2) {
 
-  //Define the variables we'll need to calculate
-  let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+        //The code snippet below has been sourced from
+        //https://github.com/kittykatattack/learningPixi
+        //The code snippet appears in its original form
+        //collsion test function
+              function hitTestRectangle(r1, r2) {
 
-  //hit will determine whether there's a collision
-  hit = false;
+          //Define the variables we'll need to calculate
+          let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
 
-  //Find the center points of each sprite
-  r1.centerX = r1.x + r1.width / 2;
-  r1.centerY = r1.y + r1.height / 2;
-  r2.centerX = r2.x + r2.width / 2;
-  r2.centerY = r2.y + r2.height / 2;
+          //hit will determine whether there's a collision
+          hit = false;
 
-  //Find the half-widths and half-heights of each sprite
-  r1.halfWidth = r1.width / 2;
-  r1.halfHeight = r1.height / 2;
-  r2.halfWidth = r2.width / 2;
-  r2.halfHeight = r2.height / 2;
+          //Find the center points of each sprite
+          r1.centerX = r1.x + r1.width / 2;
+          r1.centerY = r1.y + r1.height / 2;
+          r2.centerX = r2.x + r2.width / 2;
+          r2.centerY = r2.y + r2.height / 2;
 
-  //Calculate the distance vector between the sprites
-  vx = r1.centerX - r2.centerX;
-  vy = r1.centerY - r2.centerY;
+          //Find the half-widths and half-heights of each sprite
+          r1.halfWidth = r1.width / 2;
+          r1.halfHeight = r1.height / 2;
+          r2.halfWidth = r2.width / 2;
+          r2.halfHeight = r2.height / 2;
 
-  //Figure out the combined half-widths and half-heights
-  combinedHalfWidths = r1.halfWidth + r2.halfWidth;
-  combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+          //Calculate the distance vector between the sprites
+          vx = r1.centerX - r2.centerX;
+          vy = r1.centerY - r2.centerY;
 
-  //Check for a collision on the x axis
-  if (Math.abs(vx) < combinedHalfWidths) {
+          //Figure out the combined half-widths and half-heights
+          combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+          combinedHalfHeights = r1.halfHeight + r2.halfHeight;
 
-    //A collision might be occuring. Check for a collision on the y axis
-    if (Math.abs(vy) < combinedHalfHeights) {
+          //Check for a collision on the x axis
+          if (Math.abs(vx) < combinedHalfWidths) {
 
-      //There's definitely a collision happening
-      hit = true;
-    } else {
+            //A collision might be occuring. Check for a collision on the y axis
+            if (Math.abs(vy) < combinedHalfHeights) {
 
-      //There's no collision on the y axis
-      hit = false;
-    }
-  } else {
+              //There's definitely a collision happening
+              hit = true;
+            } else {
 
-    //There's no collision on the x axis
-    hit = false;
-  }
+              //There's no collision on the y axis
+              hit = false;
+            }
+          } else {
 
-  //`hit` will be either `true` or `false`
-  return hit;
-};
+            //There's no collision on the x axis
+            hit = false;
+          }
+
+          //`hit` will be either `true` or `false`
+          return hit;
+        };
+      // End code snippet
 
       function play(delta){
         Ellie_run.x += Ellie_run.vx;
@@ -327,9 +335,11 @@
         let zombie = new Sprite(zombie_texture);
 
 
+        zombie.height = 250;
+        zombie.width = 200;
 
 
-        zombie.position.set(1100,400);
+        zombie.position.set(1500,300);
 
 
         app.stage.addChild(zombie);
@@ -350,6 +360,10 @@
 
 
       }
+
+      //The code snippet below has been sourced from
+      //https://github.com/kittykatattack/learningPixi
+      //The code snippet appears in its original form
 
       function keyboard(keyCode){
         let key = {};
@@ -384,6 +398,8 @@
 
 
       };
+
+      // End code snippet
 
 
       //
