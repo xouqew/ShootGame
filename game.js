@@ -1,11 +1,16 @@
+
 // All the code in Game.js in intergrated into index.js
+//
+//
+//
+//
+//
+//
+//
+// This file is only for backup
 
 
 let Ellie, Ellie_run, state;
-// let Contaienr = PIXI.container;
-// //container not using
-// let characters = new container();
-// let items = new container();
 
 
 

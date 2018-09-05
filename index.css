@@ -18,8 +18,10 @@ video {
     display: inline;
 }
 
-
-/** Controls. **/
+/*
+The code snippet below has been sourced from
+https://github.com/tensorflow/tfjs-examples/tree/master/webcam-transfer-learning/style.css
+ */
 .controller-panels {
     display: flex;
     flex-direction: row;
@@ -264,3 +266,4 @@ video {
   [data-active="right"] .panel-cell-right .thumb-box-outer {
     box-shadow: 0 0 4px 4px #ffaa00;
   }
+/* code snippet end */
