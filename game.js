@@ -1,7 +1,6 @@
-//game.js
 let Ellie, Ellie_run, state;
 
-
+let run_array = [];
 
 let type = "WebGL";
 if (!PIXI.utils.isWebGLSupported()) {
@@ -101,7 +100,7 @@ function setup() {
   }
 
   //run
-  let run_array = [];
+
   for (let $e = 0; $e < 12; $e++) {
     run_array.push(Ellie_spirit + "Ellie frame_run_" + ($e + 1) + ".png");
   }
@@ -167,10 +166,11 @@ function setup() {
 
       Ellie_run.animationSpeed = 0.1;
       Ellie_run.play();
+      Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
       app.stage.removeChild(Ellie);
       app.stage.addChild(Ellie_run);
-      Ellie_run.position.set(500, 300);
-      console.log('test');
+
+      console.log(Ellie_run);
     }
   };
 
@@ -236,4 +236,175 @@ function setup() {
 
 function gameLoop(delta) {
   state(delta);
+}
+
+
+
+//The code snippet below has been sourced from
+//https://github.com/kittykatattack/learningPixi
+//The code snippet appears in its original form
+//collsion test function
+function hitTestRectangle(r1, r2) {
+
+  //Define the variables we'll need to calculate
+  let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+
+  //hit will determine whether there's a collision
+  hit = false;
+
+  //Find the center points of each sprite
+  r1.centerX = r1.x + r1.width / 2;
+  r1.centerY = r1.y + r1.height / 2;
+  r2.centerX = r2.x + r2.width / 2;
+  r2.centerY = r2.y + r2.height / 2;
+
+  //Find the half-widths and half-heights of each sprite
+  r1.halfWidth = r1.width / 2;
+  r1.halfHeight = r1.height / 2;
+  r2.halfWidth = r2.width / 2;
+  r2.halfHeight = r2.height / 2;
+
+  //Calculate the distance vector between the sprites
+  vx = r1.centerX - r2.centerX;
+  vy = r1.centerY - r2.centerY;
+
+  //Figure out the combined half-widths and half-heights
+  combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+  combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+
+  //Check for a collision on the x axis
+  if (Math.abs(vx) < combinedHalfWidths) {
+
+    //A collision might be occuring. Check for a collision on the y axis
+    if (Math.abs(vy) < combinedHalfHeights) {
+
+      //There's definitely a collision happening
+      hit = true;
+    } else {
+
+      //There's no collision on the y axis
+      hit = false;
+    }
+  } else {
+
+    //There's no collision on the x axis
+    hit = false;
+  }
+
+  //`hit` will be either `true` or `false`
+  return hit;
+};
+// End code snippet
+
+function play(delta) {
+  Ellie_run.x += Ellie_run.vx;
+  Ellie_run.x += Ellie_run.vy;
+
+  //zombie
+
+  let zombie_texture = TextureCache["Ellie/Spritesheet/Zombie_SpriteSheet.png"];
+
+
+  let rectangle = new Rectangle(64, 0, 64, 64);
+
+
+  zombie_texture.frame = rectangle;
+
+
+  let zombie = new Sprite(zombie_texture);
+
+
+  zombie.height = 250;
+  zombie.width = 200;
+
+
+  zombie.position.set(1500, 300);
+
+
+  app.stage.addChild(zombie);
+
+  //collision detect
+  // if (hitTestRectangle(Ellie_run, zombie)) {
+  //   console.log('123');
+  //   app.stage.addChild(Ellie_die);
+  //   Ellie_die.animationSpeed = 0.1;
+  //   Ellie_die.play();
+  //   Ellie_die.x = Ellie_run.x;
+  //   Ellie_die.y = Ellie_run.y;
+  //   Ellie_die.play();
+  //   app.stage.removeChild(Ellie_run);
+  //
+  // }
+
+
+
+}
+
+//The code snippet below has been sourced from
+//https://github.com/kittykatattack/learningPixi
+//The code snippet appears in its original form
+
+function keyboard(keyCode) {
+  let key = {};
+  key.code = keyCode;
+  key.isDown = false;
+  key.isUp = true;
+  key.press = undefined;
+  key.release = undefined;
+
+  key.downHandler = event => {
+    if (event.keyCode === key.code) {
+      if (key.isUp && key.press) key.press();
+      key.isDown = true;
+      key.isUp = false;
+    };
+    event.preventDefault();
+  };
+
+  key.upHandler = event => {
+    if (event.keyCode === key.code) {
+      if (key.isDown && key.release) key.release();
+      key.isDown = false;
+      key.isUp = true;
+    };
+    event.preventDefault();
+  };
+
+  window.addEventListener("keydown", key.downHandler.bind(key), false);
+  window.addEventListener("keyup", key.upHandler.bind(key), false);
+  return key;
+
+
+};
+
+// End code snippet
+
+
+// import * as tf from '@tensorflow/tfjs';
+
+var can = document.getElementById("myCanvas");
+var ctx = can.getContext("2d");
+
+var rightPressed = false;
+var leftPressed = false;
+
+
+
+function guess(classId) {
+  if (classId == 0) {
+
+  } else if (classId == 1) {
+    Ellie_run.vx += 5;
+    Ellie_run.vy = 0;
+
+    Ellie_run.animationSpeed = 0.1;
+    Ellie_run.play();
+    Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
+    Ellie_run.x += 5;
+    app.stage.removeChild(Ellie);
+    app.stage.addChild(Ellie_run);
+
+    console.log(Ellie_run);
+
+  }
 }
