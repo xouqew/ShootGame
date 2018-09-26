@@ -166,6 +166,7 @@ function setup() {
       Ellie_run.vy = 0;
 
       Ellie_run.animationSpeed = 0.1;
+
       Ellie_run.play();
       Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
       app.stage.removeChild(Ellie);
@@ -393,17 +394,30 @@ var leftPressed = false;
 
 function guess(classId) {
   if (classId == 0) {
+    Ellie_run.vx += 5;
+    Ellie_run.vy = 0;
+    Ellie_run.scale.x = -1;
+    Ellie_run.animationSpeed = 0.1;
+    Ellie_run.play();
+    Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
+    Ellie_run.x -= 5;
+    app.stage.addChild(Ellie_run);
+    app.stage.removeChild(Ellie);
+
+
+    console.log(Ellie_run);
+
 
   } else if (classId == 1) {
     Ellie_run.vx += 5;
     Ellie_run.vy = 0;
-
     Ellie_run.animationSpeed = 0.1;
     Ellie_run.play();
     Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
     Ellie_run.x += 5;
-    app.stage.removeChild(Ellie);
     app.stage.addChild(Ellie_run);
+    app.stage.removeChild(Ellie);
+
 
     console.log(Ellie_run);
 
