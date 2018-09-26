@@ -43,7 +43,7 @@ app.renderer.backgroundColor = 0x34495e;
 //https://petey90.itch.io/ellie-sprite-sheet
 
 
-document.body.appendChild(app.view), PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_0.png").add("Ellie/Frames/Ellie frame_run_1.png").add("Ellie/Frames/Ellie frame_run_2.png").add("Ellie/Frames/Ellie frame_run_3.png").add("Ellie/Frames/Ellie frame_run_4.png").add("Ellie/Frames/Ellie frame_run_5.png").add("Ellie/Frames/Ellie frame_run_6.png").add("Ellie/Frames/Ellie frame_run_7.png").add("Ellie/Frames/Ellie frame_run_8.png").add("Ellie/Frames/Ellie frame_run_9.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").add("Ellie/Spritesheet/Zombie_SpriteSheet.png").on("progress", loadProgress).load(setup);
+document.body.appendChild(app.view), PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_0.png").add("Ellie/Frames/Ellie frame_run_1.png").add("Ellie/Frames/Ellie frame_run_2.png").add("Ellie/Frames/Ellie frame_run_3.png").add("Ellie/Frames/Ellie frame_run_4.png").add("Ellie/Frames/Ellie frame_run_5.png").add("Ellie/Frames/Ellie frame_run_6.png").add("Ellie/Frames/Ellie frame_run_7.png").add("Ellie/Frames/Ellie frame_run_8.png").add("Ellie/Frames/Ellie frame_run_9.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").add("Ellie/Frames/zombie_stand_1.png").add("Ellie/Frames/zombie_stand_2.png").add("Ellie/Frames/zombie_stand_3.png").add("Ellie/Spritesheet/Zombie_SpriteSheet.png").on("progress", loadProgress).load(setup);
 
 
 //Bullet
@@ -54,14 +54,14 @@ bullet.drawRect(0, 0, 32, 6);
 bullet.endFill();
 
 
-//Wall
-// let wall = new PIXI.Graphics();
-// wall.beginFill(0xe74c3c);
-// wall.lineStyle(4, 0xe74c3c, 1);
-// wall.drawCircle(0,12,128,50);
-// wall.endFill();
-// app.stage.addChild(wall);
-// wall.position.set(1000,400);
+
+let wall = new PIXI.Graphics();
+wall.beginFill(0xe74c3c);
+wall.lineStyle(4, 0xe74c3c, 1);
+wall.drawCircle(0,12,128,50);
+wall.endFill();
+app.stage.addChild(wall);
+wall.position.set(2000,400);
 
 //box
 let box = new PIXI.Graphics();
@@ -125,6 +125,12 @@ function setup() {
 
   }
 
+
+    let zombie_array = [];
+    for (let $e = 0; $e < 3; $e++) {
+    zombie_array.push(Ellie_spirit + "zombie_stand_" + ($e + 1) + ".png");
+
+    }
   //arrow key
   let left = keyboard(65),
     up = keyboard(38),
@@ -142,7 +148,9 @@ function setup() {
   Ellie_shoot = new PIXI.extras.AnimatedSprite.fromImages(shoot_array);
   Ellie_aim = new PIXI.extras.AnimatedSprite.fromImages(aim_array);
   Ellie_die = new PIXI.extras.AnimatedSprite.fromImages(die_array);
+  zombie_stand = new PIXI.extras.AnimatedSprite.fromImages(zombie_array);
   app.stage.addChild(Ellie);
+
 
 
   state = play;
@@ -285,6 +293,14 @@ function play(delta) {
   Ellie_run.x += Ellie_run.vx;
   Ellie_run.x += Ellie_run.vy;
 
+  app.stage.addChild(zombie_stand);
+
+  zombie_stand.animationSpeed = 0.1;
+  zombie_stand.position.set(1500, 300);
+  zombie_stand.width = 250;
+  zombie_stand.height = 200;
+
+  zombie_stand.play();
   //zombie
 
   let zombie_texture = TextureCache["Ellie/Spritesheet/Zombie_SpriteSheet.png"];
@@ -293,32 +309,11 @@ function play(delta) {
   let rectangle = new Rectangle(64, 0, 64, 64);
 
 
-  zombie_texture.frame = rectangle;
-
-
-  let zombie = new Sprite(zombie_texture);
-
-
-  zombie.height = 250;
-  zombie.width = 200;
-
-
-  zombie.position.set(1500, 300);
-
-
-  app.stage.addChild(zombie);
 
   //collision detect
-  // if (hitTestRectangle(Ellie_run, zombie)) {
+  // if (hitTestRectangle(Ellie_run, wall)) {
   //   console.log('123');
-  //   app.stage.addChild(Ellie_die);
-  //   Ellie_die.animationSpeed = 0.1;
-  //   Ellie_die.play();
-  //   Ellie_die.x = Ellie_run.x;
-  //   Ellie_die.y = Ellie_run.y;
-  //   Ellie_die.play();
-  //   app.stage.removeChild(Ellie_run);
-  //
+  //   Ellie_run.stop();
   // }
 
 
@@ -342,7 +337,7 @@ function keyboard(keyCode) {
       if (key.isUp && key.press) key.press();
       key.isDown = true;
       key.isUp = false;
-    };
+    }
     event.preventDefault();
   };
 
@@ -351,7 +346,7 @@ function keyboard(keyCode) {
       if (key.isDown && key.release) key.release();
       key.isDown = false;
       key.isUp = true;
-    };
+    }
     event.preventDefault();
   };
 
@@ -360,50 +355,6 @@ function keyboard(keyCode) {
   return key;
 
 
-};
+}
 
 // End code snippet
-
-function goLeft(){
-  Ellie_run.vx -= 5;
-  Ellie_run.vy = 0;
-  Ellie_run.scale.x = -1;
-  Ellie_run.animationSpeed = 0.1;
-  Ellie_run.play();
-  Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
-  Ellie_run.x -= 5;
-
-  app.stage.removeChild(Ellie);
-
-}
-
-
-function goRight(){
-  Ellie_run.vx += 5;
-  Ellie_run.vy = 0;
-  Ellie_run.scale.x = 1;
-  Ellie_run.animationSpeed = 0.1;
-  Ellie_run.play();
-  Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
-  Ellie_run.x += 5;
-
-  app.stage.removeChild(Ellie);
-
-}
-// import * as tf from '@tensorflow/tfjs';
-
-var can = document.getElementById("myCanvas");
-var ctx = can.getContext("2d");
-
-var rightPressed = false;
-var leftPressed = false;
-
-
-
-function guess(classId) {
-    app.stage.addChild(Ellie_run);
-    console.log(classId);
-    
-    classId == 0 ? goLeft():goRight();
-
-}
