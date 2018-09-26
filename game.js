@@ -144,6 +144,7 @@ function setup() {
   Ellie_die = new PIXI.extras.AnimatedSprite.fromImages(die_array);
   app.stage.addChild(Ellie);
 
+
   state = play;
 
   app.ticker.add(delta => gameLoop(delta));
@@ -161,30 +162,12 @@ function setup() {
 
   right.press = () => {
 
-    if (!space.isDown) {
-      Ellie_run.vx = 5;
-      Ellie_run.vy = 0;
-
-      Ellie_run.animationSpeed = 0.1;
-
-      Ellie_run.play();
-      Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
-      app.stage.removeChild(Ellie);
-      app.stage.addChild(Ellie_run);
-
-      console.log(Ellie_run);
-    }
+    Ellie_run.vx = 0;
+    app.stage.addChild(Ellie);
+    app.stage.removeChild(Ellie_run);
+    Ellie_run.position;
   };
 
-  right.release = () => {
-    if (!left.isDown && Ellie_run.vy === 0) {
-
-      Ellie_run.vx = 0;
-      app.stage.addChild(Ellie);
-      app.stage.removeChild(Ellie_run);
-      Ellie_run.position;
-    }
-  };
 
   //shoot control
   space.press = () => {
@@ -381,7 +364,32 @@ function keyboard(keyCode) {
 
 // End code snippet
 
+function goLeft(){
+  Ellie_run.vx -= 5;
+  Ellie_run.vy = 0;
+  Ellie_run.scale.x = -1;
+  Ellie_run.animationSpeed = 0.1;
+  Ellie_run.play();
+  Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
+  Ellie_run.x -= 5;
 
+  app.stage.removeChild(Ellie);
+
+}
+
+
+function goRight(){
+  Ellie_run.vx += 5;
+  Ellie_run.vy = 0;
+  Ellie_run.scale.x = 1;
+  Ellie_run.animationSpeed = 0.1;
+  Ellie_run.play();
+  Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
+  Ellie_run.x += 5;
+
+  app.stage.removeChild(Ellie);
+
+}
 // import * as tf from '@tensorflow/tfjs';
 
 var can = document.getElementById("myCanvas");
@@ -393,33 +401,9 @@ var leftPressed = false;
 
 
 function guess(classId) {
-  if (classId == 0) {
-    Ellie_run.vx += 5;
-    Ellie_run.vy = 0;
-    Ellie_run.scale.x = -1;
-    Ellie_run.animationSpeed = 0.1;
-    Ellie_run.play();
-    Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
-    Ellie_run.x -= 5;
     app.stage.addChild(Ellie_run);
-    app.stage.removeChild(Ellie);
+    console.log(classId);
+    
+    classId == 0 ? goLeft():goRight();
 
-
-    console.log(Ellie_run);
-
-
-  } else if (classId == 1) {
-    Ellie_run.vx += 5;
-    Ellie_run.vy = 0;
-    Ellie_run.animationSpeed = 0.1;
-    Ellie_run.play();
-    Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
-    Ellie_run.x += 5;
-    app.stage.addChild(Ellie_run);
-    app.stage.removeChild(Ellie);
-
-
-    console.log(Ellie_run);
-
-  }
 }
