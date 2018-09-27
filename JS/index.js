@@ -99,7 +99,7 @@ class ControllerDataset {
   }
 }
 // Code change 1: In here I set up the different controller for the game character action
-const CONTROLS = ['left', 'right'];
+const CONTROLS = ['left', 'right', 'up', 'down'];
 //change 1 end
 
 
@@ -117,10 +117,12 @@ function setExampleHandler(handler) {
 }
 
 let mouseDown = false;
-const totals = [0, 0, 0];
+const totals = [0, 0, 0, 0];
 
 const leftButton = document.getElementById('left');
 const rightButton = document.getElementById('right');
+const upButton = document.getElementById('up');
+const downButton = document.getElementById('down');
 
 
 const thumbDisplayed = {};
@@ -147,6 +149,14 @@ leftButton.addEventListener('mouseup', () => mouseDown = false);
 rightButton.addEventListener('mousedown', () => handler(1));
 rightButton.addEventListener('mouseup', () => mouseDown = false);
 
+upButton.addEventListener('mousedown', () => handler(2));
+upButton.addEventListener('mouseup', () => mouseDown = false);
+
+downButton.addEventListener('mousedown', () => handler(3));
+downButton.addEventListener('mouseup', () => mouseDown = false);
+
+
+
 
 function drawThumb(img, label) {
   if (thumbDisplayed[label] == null) {
@@ -172,7 +182,7 @@ function draw(image, canva) {
 }
 
 
-const NUM_CLASSES = 3;
+const NUM_CLASSES = 4;
 
 
 const webcam = new Webcam(document.getElementById('webcam'));
