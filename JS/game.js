@@ -1,14 +1,11 @@
 let Ellie, Ellie_run, state;
 
 
-let run_array = [];
-
 let type = "WebGL";
 if (!PIXI.utils.isWebGLSupported()) {
   type = "canvas";
 
 }
-
 
 let Container = PIXI.Container,
   loader = PIXI.loader,
@@ -17,7 +14,6 @@ let Container = PIXI.Container,
   Sprite = PIXI.Sprite,
   Rectangle = PIXI.Rectangle;
 
-PIXI.utils.sayHello(type);
 
 
 let app = new PIXI.Application({
@@ -43,9 +39,7 @@ app.renderer.backgroundColor = 0x34495e;
 //https://petey90.itch.io/ellie-sprite-sheet
 //and https://opengameart.org/content/pixel-zombie
 
-
-
-document.body.appendChild(app.view), PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_0.png").add("Ellie/Frames/Ellie frame_run_1.png").add("Ellie/Frames/Ellie frame_run_2.png").add("Ellie/Frames/Ellie frame_run_3.png").add("Ellie/Frames/Ellie frame_run_4.png").add("Ellie/Frames/Ellie frame_run_5.png").add("Ellie/Frames/Ellie frame_run_6.png").add("Ellie/Frames/Ellie frame_run_7.png").add("Ellie/Frames/Ellie frame_run_8.png").add("Ellie/Frames/Ellie frame_run_9.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").add("Ellie/Frames/zombie_1.png").add("Ellie/Frames/zombie_2.png").add("Ellie/Frames/zombie_3.png").add("Ellie/Frames/zombie_4.png").add("Ellie/Frames/zombie_5.png").add("Ellie/Frames/zombie_6.png").add("Ellie/Frames/zombie_7.png").add("Ellie/Frames/zombie_8.png").add("Ellie/Frames/zombie_9.png").add("Ellie/Frames/zombie_10.png").add("Ellie/Frames/zombie_11.png").add("Ellie/Frames/zombie_12.png").add("Ellie/Frames/zombie_13.png").add("Ellie/Frames/zombie_14.png").add("Ellie/Frames/zombie_15.png").add("Ellie/Frames/zombie_16.png").add("Ellie/Frames/zombie_attack_1.png").add("Ellie/Frames/zombie_attack_2.png").add("Ellie/Frames/zombie_attack_3.png").add("Ellie/Frames/zombie_attack_4.png").add("Ellie/Frames/zombie_attack_5.png").add("Ellie/Frames/zombie_attack_6.png").add("Ellie/Frames/zombie_attack_7.png").add("Ellie/Frames/zombie_attack_8.png").add("Ellie/Frames/zombie_attack_9.png").on("progress", loadProgress).load(setup);
+document.body.appendChild(app.view), PIXI.loader.add("Ellie/Frames/Ellie frame_idle_0.png").add("Ellie/Frames/Ellie frame_idle_1.png").add("Ellie/Frames/Ellie frame_idle_2.png").add("Ellie/Frames/Ellie frame_idle_3.png").add("Ellie/Frames/Ellie frame_run_0.png").add("Ellie/Frames/Ellie frame_run_1.png").add("Ellie/Frames/Ellie frame_run_2.png").add("Ellie/Frames/Ellie frame_run_3.png").add("Ellie/Frames/Ellie frame_run_4.png").add("Ellie/Frames/Ellie frame_run_5.png").add("Ellie/Frames/Ellie frame_run_6.png").add("Ellie/Frames/Ellie frame_run_7.png").add("Ellie/Frames/Ellie frame_run_8.png").add("Ellie/Frames/Ellie frame_run_9.png").add("Ellie/Frames/Ellie frame_run_10.png").add("Ellie/Frames/Ellie frame_run_11.png").add("Ellie/Frames/Ellie frame_run_12.png").add("Ellie/Frames/Ellie frame_shoot_0.png").add("Ellie/Frames/Ellie frame_shoot_1.png").add("Ellie/Frames/Ellie frame_shoot_2.png").add("Ellie/Frames/Ellie frame_shoot_3.png").add("Ellie/Frames/Ellie frame_aim_0.png").add("Ellie/Frames/Ellie frame_aim_1.png").add("Ellie/Frames/Ellie frame_aim_2.png").add("Ellie/Frames/Ellie frame_aim_3.png").add("Ellie/Frames/Ellie frame_aim_4.png").add("Ellie/Frames/Ellie frame_aim_5.png").add("Ellie/Frames/Ellie frame_aim_6.png").add("Ellie/Frames/Ellie frame_aim_7.png").add("Ellie/Frames/Ellie frame_death_0.png").add("Ellie/Frames/Ellie frame_death_1.png").add("Ellie/Frames/Ellie frame_death_2.png").add("Ellie/Frames/Ellie frame_death_3.png").add("Ellie/Frames/Ellie frame_death_4.png").add("Ellie/Frames/Ellie frame_death_5.png").add("Ellie/Frames/Ellie frame_death_6.png").add("Ellie/Frames/Ellie frame_death_7.png").add("Ellie/Frames/zombie_1.png").add("Ellie/Frames/zombie_2.png").add("Ellie/Frames/zombie_3.png").add("Ellie/Frames/zombie_4.png").add("Ellie/Frames/zombie_5.png").add("Ellie/Frames/zombie_6.png").add("Ellie/Frames/zombie_7.png").add("Ellie/Frames/zombie_8.png").add("Ellie/Frames/zombie_9.png").add("Ellie/Frames/zombie_10.png").add("Ellie/Frames/zombie_11.png").add("Ellie/Frames/zombie_12.png").add("Ellie/Frames/zombie_13.png").add("Ellie/Frames/zombie_14.png").add("Ellie/Frames/zombie_15.png").add("Ellie/Frames/zombie_16.png").add("Ellie/Frames/zombie_attack_1.png").add("Ellie/Frames/zombie_attack_2.png").add("Ellie/Frames/zombie_attack_3.png").add("Ellie/Frames/zombie_attack_4.png").add("Ellie/Frames/zombie_attack_5.png").add("Ellie/Frames/zombie_attack_6.png").add("Ellie/Frames/zombie_attack_7.png").add("Ellie/Frames/zombie_attack_8.png").add("Ellie/Frames/zombie_attack_9.png").add("Ellie/Frames/zombie_born_1.png").add("Ellie/Frames/zombie_born_2.png").add("Ellie/Frames/zombie_born_3.png").add("Ellie/Frames/zombie_born_4.png").add("Ellie/Frames/zombie_born_5.png").add("Ellie/Frames/zombie_born_6.png").add("Ellie/Frames/zombie_born_7.png").add("Ellie/Frames/zombie_born_8.png").add("Ellie/Frames/zombie_die_1.png").add("Ellie/Frames/zombie_die_2.png").add("Ellie/Frames/zombie_die_3.png").add("Ellie/Frames/zombie_die_4.png").add("Ellie/Frames/zombie_die_5.png").add("Ellie/Frames/zombie_die_6.png").add("Ellie/Frames/zombie_die_7.png").add("Ellie/Frames/zombie_die_8.png").on("progress", loadProgress).load(setup);
 
 
 //Bullet
@@ -60,10 +54,10 @@ bullet.endFill();
 let wall = new PIXI.Graphics();
 wall.beginFill(0xe74c3c);
 wall.lineStyle(4, 0xe74c3c, 1);
-wall.drawCircle(0,12,128,50);
+wall.drawCircle(0, 12, 128, 50);
 wall.endFill();
 app.stage.addChild(wall);
-wall.position.set(2000,400);
+wall.position.set(2000, 400);
 
 //box
 let box = new PIXI.Graphics();
@@ -105,6 +99,7 @@ function setup() {
 
   //run
 
+  let run_array = [];
   for (let $e = 0; $e < 12; $e++) {
     run_array.push(Ellie_spirit + "Ellie frame_run_" + ($e + 1) + ".png");
   }
@@ -129,16 +124,26 @@ function setup() {
   }
 
 
-    let zombie_array = [];
-    for (let $e = 0; $e < 15; $e++) {
+  let zombie_array = [];
+  for (let $e = 0; $e < 15; $e++) {
     zombie_array.push(Ellie_spirit + "zombie_" + ($e + 1) + ".png");
 
-    }
+  }
 
-    let zombie_attack_array = [];
-    for (let $e = 0; $e < 8; $e++) {
+  let zombie_attack_array = [];
+  for (let $e = 0; $e < 8; $e++) {
     zombie_attack_array.push(Ellie_spirit + "zombie_attack_" + ($e + 1) + ".png");
-    }
+  }
+
+  let zombie_born_array = [];
+  for (let $e = 0; $e < 7; $e++) {
+    zombie_born_array.push(Ellie_spirit + "zombie_born_" + ($e + 1) + ".png");
+  }
+
+  let zombie_die_array = [];
+  for (let $e = 0; $e < 7; $e++) {
+    zombie_die_array.push(Ellie_spirit + "zombie_die_" + ($e + 1) + ".png");
+  }
   //arrow key
   let left = keyboard(65),
     up = keyboard(38),
@@ -158,6 +163,8 @@ function setup() {
   Ellie_die = new PIXI.extras.AnimatedSprite.fromImages(die_array);
   zombie_stand = new PIXI.extras.AnimatedSprite.fromImages(zombie_array);
   zombie_attack = new PIXI.extras.AnimatedSprite.fromImages(zombie_attack_array);
+  zombie_born = new PIXI.extras.AnimatedSprite.fromImages(zombie_born_array);
+  zombie_die = new PIXI.extras.AnimatedSprite.fromImages(zombie_die_array);
   app.stage.addChild(Ellie);
 
 
@@ -172,7 +179,42 @@ function setup() {
   Ellie.vx = 0;
   Ellie.vy = 0;
 
+  app.stage.addChild(zombie_die);
 
+  zombie_die.animationSpeed = 0.1;
+  zombie_die.position.set(1100, 200);
+  zombie_die.width = 480;
+  zombie_die.height = 480;
+
+  zombie_die.play();
+
+  app.stage.addChild(zombie_stand);
+  app.stage.addChild(zombie_born);
+
+  zombie_born.animationSpeed = 0.05;
+  zombie_born.position.set(1300, 200);
+  zombie_born.width = 480;
+  zombie_born.height = 480;
+
+  zombie_born.play();
+
+  zombie_stand.animationSpeed = 0.1;
+  zombie_stand.position.set(1500, 200);
+  zombie_stand.width = 480;
+  zombie_stand.height = 480;
+
+  zombie_stand.play();
+
+
+
+  app.stage.addChild(zombie_attack);
+
+  zombie_attack.animationSpeed = 0.1;
+  zombie_attack.position.set(1200, 200);
+  zombie_attack.width = 480;
+  zombie_attack.height = 480;
+
+  zombie_attack.play();
 
 
 
@@ -301,59 +343,6 @@ function hitTestRectangle(r1, r2) {
 function play(delta) {
   Ellie_run.x += Ellie_run.vx;
   Ellie_run.x += Ellie_run.vy;
-
-  app.stage.addChild(zombie_stand);
-
-  zombie_stand.animationSpeed = 0.1;
-  zombie_stand.position.set(1500, 200);
-  zombie_stand.width = 480;
-  zombie_stand.height = 480;
-
-  zombie_stand.play();
-
-
-
-  app.stage.addChild(zombie_attack);
-
-  zombie_attack.animationSpeed = 0.1;
-  zombie_attack.position.set(1200, 200);
-  zombie_attack.width = 480;
-  zombie_attack.height = 480;
-
-  zombie_attack.play();
-  //zombie
-
-
-    // let zombie_texture = TextureCache["Ellie/Spritesheet/Zombie_SpriteSheet.png"];
-    // let frames = [new Rectangle(64, 0, 64, 64), new Rectangle(128, 0, 64, 64), new Rectangle(192, 0, 64, 64)]
-    // let zombiej_array = [];
-    // for (var i = 0; i < 2; i++) {
-    //   zombie_texture.frame = frames[i];
-    //   zombiej_array.push(zombie_texture);
-    // }
-
-
-
-    //
-    //
-    //
-    // let zombie = new Sprite(zombie_texture);
-    //
-    //
-    // zombie.height = 250;
-    // zombie.width = 200;
-    //
-    //
-    // zombie.position.set(1500, 300);
-    //
-    //
-    // app.stage.addChild(zombie);
-
-  //collision detect
-  // if (hitTestRectangle(Ellie_run, wall)) {
-  //   console.log('123');
-  //   Ellie_run.stop();
-  // }
 
 
 
