@@ -2,7 +2,7 @@
 /*global someFunction PIXI:true*/
 /*eslint no-undef: "error"*/
 
-let Ellie, ellieRun, state, ellieAim, elliedie, ellieShoot;
+let Ellie, ellierun, state, ellieaim, elliedie, ellieshoot;
 
 
 let type = "WebGL";
@@ -59,7 +59,7 @@ function keyboard(keyCode) {
 
   key.downHandler = event => {
     if (event.keyCode === key.code) {
-      if (key.isUp && key.press) key.press();
+      if (key.isUp && key.press) {key.press();}
       key.isDown = true;
       key.isUp = false;
     }
@@ -68,7 +68,7 @@ function keyboard(keyCode) {
 
   key.upHandler = event => {
     if (event.keyCode === key.code) {
-      if (key.isDown && key.release) key.release();
+      if (key.isDown && key.release) {key.release();}
       key.isDown = false;
       key.isUp = true;
     }
@@ -124,7 +124,7 @@ let nameStyle = new PIXI.TextStyle({
   fill: "white",
 
 });
-let name = new PIXI.Text('', nameStyle);
+let name = new PIXI.Text("", nameStyle);
 app.stage.addChild(name);
 name.position.set(570, 300);
 
@@ -200,9 +200,9 @@ function setup() {
 
   // let Ellie = new PIXI.Sprite(PIXI.loader.resources["Ellie/Frames/Ellie frame_idle_0.png"].texture);
   Ellie = new PIXI.extras.AnimatedSprite.fromImages(idleArray);
-  ellieRun = new PIXI.extras.AnimatedSprite.fromImages(runArray);
-  ellieShoot = new PIXI.extras.AnimatedSprite.fromImages(shootArray);
-  ellieAim = new PIXI.extras.AnimatedSprite.fromImages(aimArray);
+  ellierun = new PIXI.extras.AnimatedSprite.fromImages(runArray);
+  ellieshoot = new PIXI.extras.AnimatedSprite.fromImages(shootArray);
+  ellieaim = new PIXI.extras.AnimatedSprite.fromImages(aimArray);
   elliedie = new PIXI.extras.AnimatedSprite.fromImages(dieArray);
   zombie_stand = new PIXI.extras.AnimatedSprite.fromImages(zombieArray);
   zombie_attack = new PIXI.extras.AnimatedSprite.fromImages(zombieAttackArray);
@@ -264,10 +264,10 @@ function setup() {
 
   right.press = () => {
 
-    ellieRun.vx = 0;
+    ellierun.vx = 0;
     app.stage.addChild(Ellie);
-    app.stage.removeChild(ellieRun);
-    ellieRun.position;
+    app.stage.removeChild(ellierun);
+    ellierun.position;
   };
 
 
@@ -275,14 +275,14 @@ function setup() {
   space.press = () => {
 
     if (!right.isDown) {
-      ellieRun.vx = 5;
-      ellieRun.vy = 0;
-      ellieShoot.animationSpeed = 0.1;
-      ellieShoot.play();
+      ellierun.vx = 5;
+      ellierun.vy = 0;
+      ellieshoot.animationSpeed = 0.1;
+      ellieshoot.play();
       app.stage.removeChild(Ellie);
-      app.stage.removeChild(ellieAim);
-      app.stage.addChild(ellieShoot);
-      ellieShoot.position.set(500, 300);
+      app.stage.removeChild(ellieaim);
+      app.stage.addChild(ellieshoot);
+      ellieshoot.position.set(500, 300);
       console.log('test');
 
     }
@@ -291,21 +291,21 @@ function setup() {
 
   space.release = () => {
     if (!right.isDown && !aim.isDown) {
-      ellieRun.vx = 0;
+      ellierun.vx = 0;
       app.stage.addChild(Ellie);
-      app.stage.removeChild(ellieShoot);
-      ellieRun.position;
+      app.stage.removeChild(ellieshoot);
+      ellierun.position;
     }
   };
 
   //aim
   aim.press = () => {
     if (!right.isDown) {
-      app.stage.addChild(ellieAim);
-      ellieAim.animationSpeed = 0.1;
-      ellieAim.position.set(500, 300);
+      app.stage.addChild(ellieaim);
+      ellieaim.animationSpeed = 0.1;
+      ellieaim.position.set(500, 300);
       app.stage.removeChild(Ellie);
-      ellieAim.play();
+      ellieaim.play();
     }
 
   };
@@ -313,7 +313,7 @@ function setup() {
   aim.release = () => {
 
     if (!space.isDown) {
-      app.stage.removeChild(ellieAim);
+      app.stage.removeChild(ellieaim);
       app.stage.addChild(Ellie);
     }
 
@@ -384,8 +384,8 @@ function hitTestRectangle(r1, r2) {
 // End code snippet
 
 function play(delta) {
-  ellieRun.x += ellieRun.vx;
-  ellieRun.x += ellieRun.vy;
+  ellierun.x += ellierun.vx;
+  ellierun.x += ellierun.vy;
 
 
 
