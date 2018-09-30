@@ -1,4 +1,5 @@
-let Ellie, Ellie_run, state;
+
+let Ellie, ellieRun, state;
 
 
 let type = "WebGL";
@@ -91,9 +92,9 @@ function loadProgress(loader, resource) {
 function setup() {
   //idle
   let Ellie_spirit = "Ellie/Frames/",
-    idle_array = [];
+    idleArray = [];
   for (let $e = 0; $e < 3; $e++) {
-    idle_array.push(Ellie_spirit + "Ellie frame_idle_" + ($e + 1) + ".png");
+    idleArray.push(Ellie_spirit + "Ellie frame_idle_" + ($e + 1) + ".png");
 
   }
 
@@ -135,14 +136,14 @@ function setup() {
     zombie_attack_array.push(Ellie_spirit + "zombie_attack_" + ($e + 1) + ".png");
   }
 
-  let zombie_born_array = [];
+  let zombieBornArray = [];
   for (let $e = 0; $e < 7; $e++) {
-    zombie_born_array.push(Ellie_spirit + "zombie_born_" + ($e + 1) + ".png");
+    zombieBornArray.push(Ellie_spirit + "zombie_born_" + ($e + 1) + ".png");
   }
 
-  let zombie_die_array = [];
+  let zombieDieArray = [];
   for (let $e = 0; $e < 7; $e++) {
-    zombie_die_array.push(Ellie_spirit + "zombie_die_" + ($e + 1) + ".png");
+    zombieDieArray.push(Ellie_spirit + "zombie_die_" + ($e + 1) + ".png");
   }
   //arrow key
   let left = keyboard(65),
@@ -156,15 +157,15 @@ function setup() {
 
 
   // let Ellie = new PIXI.Sprite(PIXI.loader.resources["Ellie/Frames/Ellie frame_idle_0.png"].texture);
-  Ellie = new PIXI.extras.AnimatedSprite.fromImages(idle_array);
-  Ellie_run = new PIXI.extras.AnimatedSprite.fromImages(run_array);
-  Ellie_shoot = new PIXI.extras.AnimatedSprite.fromImages(shoot_array);
+  Ellie = new PIXI.extras.AnimatedSprite.fromImages(idleArray);
+  ellieRun = new PIXI.extras.AnimatedSprite.fromImages(run_array);
+  ellieShoot = new PIXI.extras.AnimatedSprite.fromImages(shoot_array);
   Ellie_aim = new PIXI.extras.AnimatedSprite.fromImages(aim_array);
   Ellie_die = new PIXI.extras.AnimatedSprite.fromImages(die_array);
   zombie_stand = new PIXI.extras.AnimatedSprite.fromImages(zombie_array);
   zombie_attack = new PIXI.extras.AnimatedSprite.fromImages(zombie_attack_array);
-  zombie_born = new PIXI.extras.AnimatedSprite.fromImages(zombie_born_array);
-  zombie_die = new PIXI.extras.AnimatedSprite.fromImages(zombie_die_array);
+  zombie_born = new PIXI.extras.AnimatedSprite.fromImages(zombieBornArray);
+  zombie_die = new PIXI.extras.AnimatedSprite.fromImages(zombieDieArray);
   app.stage.addChild(Ellie);
 
 
@@ -221,10 +222,10 @@ function setup() {
 
   right.press = () => {
 
-    Ellie_run.vx = 0;
+    ellieRun.vx = 0;
     app.stage.addChild(Ellie);
-    app.stage.removeChild(Ellie_run);
-    Ellie_run.position;
+    app.stage.removeChild(ellieRun);
+    ellieRun.position;
   };
 
 
@@ -232,14 +233,14 @@ function setup() {
   space.press = () => {
 
     if (!right.isDown) {
-      Ellie_run.vx = 5;
-      Ellie_run.vy = 0;
-      Ellie_shoot.animationSpeed = 0.1;
-      Ellie_shoot.play();
+      ellieRun.vx = 5;
+      ellieRun.vy = 0;
+      ellieShoot.animationSpeed = 0.1;
+      ellieShoot.play();
       app.stage.removeChild(Ellie);
       app.stage.removeChild(Ellie_aim);
-      app.stage.addChild(Ellie_shoot);
-      Ellie_shoot.position.set(500, 300);
+      app.stage.addChild(ellieShoot);
+      ellieShoot.position.set(500, 300);
       console.log('test');
 
     }
@@ -248,10 +249,10 @@ function setup() {
 
   space.release = () => {
     if (!right.isDown && !aim.isDown) {
-      Ellie_run.vx = 0;
+      ellieRun.vx = 0;
       app.stage.addChild(Ellie);
-      app.stage.removeChild(Ellie_shoot);
-      Ellie_run.position;
+      app.stage.removeChild(ellieShoot);
+      ellieRun.position;
     }
   };
 
@@ -341,8 +342,8 @@ function hitTestRectangle(r1, r2) {
 // End code snippet
 
 function play(delta) {
-  Ellie_run.x += Ellie_run.vx;
-  Ellie_run.x += Ellie_run.vy;
+  ellieRun.x += ellieRun.vx;
+  ellieRun.x += ellieRun.vy;
 
 
 

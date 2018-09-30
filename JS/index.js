@@ -131,7 +131,7 @@ async function handler(label) {
   mouseDown = true;
   const className = CONTROLS[label];
   const button = document.getElementById(className);
-  const total = document.getElementById(className + '-total');
+  const total = document.getElementById(className + "-total");
 
   while (mouseDown) {
     addExampleHandler(label);
@@ -143,24 +143,24 @@ async function handler(label) {
 }
 
 
-leftButton.addEventListener('mousedown', () => handler(0));
-leftButton.addEventListener('mouseup', () => mouseDown = false);
+leftButton.addEventListener("mousedown", () => handler(0));
+leftButton.addEventListener("mouseup", () => mouseDown = false);
 
-rightButton.addEventListener('mousedown', () => handler(1));
-rightButton.addEventListener('mouseup', () => mouseDown = false);
+rightButton.addEventListener("mousedown", () => handler(1));
+rightButton.addEventListener("mouseup", () => mouseDown = false);
 
-upButton.addEventListener('mousedown', () => handler(2));
-upButton.addEventListener('mouseup', () => mouseDown = false);
+upButton.addEventListener("mousedown", () => handler(2));
+upButton.addEventListener("mouseup", () => mouseDown = false);
 
-downButton.addEventListener('mousedown', () => handler(3));
-downButton.addEventListener('mouseup', () => mouseDown = false);
+downButton.addEventListener("mousedown", () => handler(3));
+downButton.addEventListener("mouseup", () => mouseDown = false);
 
 
 
 
 function drawThumb(img, label) {
   if (thumbDisplayed[label] == null) {
-    const thumbCanvas = document.getElementById(CONTROLS[label] + '-thumb');
+    const thumbCanvas = document.getElementById(CONTROLS[label] + "-thumb");
     draw(img, thumbCanvas);
   }
 }

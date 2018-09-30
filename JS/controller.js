@@ -1,12 +1,12 @@
 
 function goLeft(){
-  Ellie_run.vx -= 5;
-  Ellie_run.vy = 0;
-  Ellie_run.scale.x = -1;
-  Ellie_run.animationSpeed = 0.1;
-  Ellie_run.play();
-  Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
-  Ellie_run.x -= 5;
+  ellieRun.vx -= 5;
+  ellieRun.vy = 0;
+  ellieRun.scale.x = -1;
+  ellieRun.animationSpeed = 0.1;
+  ellieRun.play();
+  ellieRun.position.set(Ellie.position.x,Ellie.position.y);
+  ellieRun.x -= 5;
 
   app.stage.removeChild(Ellie);
 
@@ -14,13 +14,13 @@ function goLeft(){
 
 
 function goRight(){
-  Ellie_run.vx += 5;
-  Ellie_run.vy = 0;
-  Ellie_run.scale.x = 1;
-  Ellie_run.animationSpeed = 0.1;
-  Ellie_run.play();
-  Ellie_run.position.set(Ellie.position.x,Ellie.position.y);
-  Ellie_run.x += 5;
+  ellieRun.vx += 5;
+  ellieRun.vy = 0;
+  ellieRun.scale.x = 1;
+  ellieRun.animationSpeed = 0.1;
+  ellieRun.play();
+  ellieRun.position.set(Ellie.position.x,Ellie.position.y);
+  ellieRun.x += 5;
 
   app.stage.removeChild(Ellie);
 
@@ -36,7 +36,7 @@ var ctx = can.getContext("2d");
 
 
 function guess(classId) {
-    app.stage.addChild(Ellie_run);
+    app.stage.addChild(ellieRun);
     console.log(classId);
     classId == 0 ? goLeft():goRight();
 
