@@ -1,5 +1,8 @@
 
-let Ellie, ellieRun, state;
+/*global someFunction PIXI:true*/
+/*eslint no-undef: "error"*/
+
+let Ellie, ellieRun, state, ellieAim, elliedie, ellieShoot;
 
 
 let type = "WebGL";
@@ -33,6 +36,53 @@ app.renderer.view.style.display = "block";
 app.renderer.autoResize = true;
 app.renderer.resize(1920, 512);
 app.renderer.backgroundColor = 0x34495e;
+
+
+//monitor loading progress
+function loadProgress(loader, resource) {
+  console.log("loading" + resource.url);
+
+  console.log("progress" + loader.progress + "%");
+}
+
+//The code snippet below has been sourced from
+//https://github.com/kittykatattack/learningPixi
+//The code snippet appears in its original form
+
+function keyboard(keyCode) {
+  let key = {};
+  key.code = keyCode;
+  key.isDown = false;
+  key.isUp = true;
+  key.press = undefined;
+  key.release = undefined;
+
+  key.downHandler = event => {
+    if (event.keyCode === key.code) {
+      if (key.isUp && key.press) key.press();
+      key.isDown = true;
+      key.isUp = false;
+    }
+    event.preventDefault();
+  };
+
+  key.upHandler = event => {
+    if (event.keyCode === key.code) {
+      if (key.isDown && key.release) key.release();
+      key.isDown = false;
+      key.isUp = true;
+    }
+    event.preventDefault();
+  };
+
+  window.addEventListener("keydown", key.downHandler.bind(key), false);
+  window.addEventListener("keyup", key.upHandler.bind(key), false);
+  return key;
+
+
+}
+
+
 
 //The spirits images  below has been sourced from
 //https://stensven.itch.io/zombie
@@ -68,82 +118,74 @@ box.drawRect(0, 12, 128, 50);
 box.endFill();
 
 //name
-let name_style = new PIXI.TextStyle({
+let nameStyle = new PIXI.TextStyle({
   fontFamily: "Arial",
   fontSize: 24,
   fill: "white",
 
 });
-let name = new PIXI.Text('', name_style);
+let name = new PIXI.Text('', nameStyle);
 app.stage.addChild(name);
 name.position.set(570, 300);
 
 
 
-//monitor loading progress
-function loadProgress(loader, resource) {
-  console.log("loading" + resource.url);
-
-  console.log("progress" + loader.progress + "%");
-}
-
-
 
 function setup() {
   //idle
-  let Ellie_spirit = "Ellie/Frames/",
+  let filePath = "Ellie/Frames/",
     idleArray = [];
   for (let $e = 0; $e < 3; $e++) {
-    idleArray.push(Ellie_spirit + "Ellie frame_idle_" + ($e + 1) + ".png");
+    idleArray.push(filePath + "Ellie frame_idle_" + ($e + 1) + ".png");
 
   }
 
   //run
 
-  let run_array = [];
+  let runArray = [];
   for (let $e = 0; $e < 12; $e++) {
-    run_array.push(Ellie_spirit + "Ellie frame_run_" + ($e + 1) + ".png");
+    runArray.push(filePath + "Ellie frame_run_" + ($e + 1) + ".png");
   }
 
   //shoot
-  let shoot_array = [];
+  let shootArray = [];
   for (let $e = 0; $e < 3; $e++) {
-    shoot_array.push(Ellie_spirit + "Ellie frame_shoot_" + ($e + 1) + ".png");
+    shootArray.push(filePath + "Ellie frame_shoot_" + ($e + 1) + ".png");
   }
 
   //aim
-  let aim_array = [];
+  let aimArray = [];
   for (let $e = 0; $e < 6; $e++) {
-    aim_array.push(Ellie_spirit + "Ellie frame_aim_" + ($e + 1) + ".png");
+    aimArray.push(filePath + "Ellie frame_aim_" + ($e + 1) + ".png");
   }
 
 
-  let die_array = [];
+  let dieArray = [];
   for (let $e = 0; $e < 6; $e++) {
-    die_array.push(Ellie_spirit + "Ellie frame_death_" + ($e + 1) + ".png");
+    dieArray.push(filePath + "Ellie frame_death_" + ($e + 1) + ".png");
 
   }
 
 
-  let zombie_array = [];
+  let zombieArray = [];
   for (let $e = 0; $e < 15; $e++) {
-    zombie_array.push(Ellie_spirit + "zombie_" + ($e + 1) + ".png");
+    zombieArray.push(filePath + "zombie_" + ($e + 1) + ".png");
 
   }
 
-  let zombie_attack_array = [];
+  let zombieAttackArray = [];
   for (let $e = 0; $e < 8; $e++) {
-    zombie_attack_array.push(Ellie_spirit + "zombie_attack_" + ($e + 1) + ".png");
+    zombieAttackArray.push(filePath + "zombie_attack_" + ($e + 1) + ".png");
   }
 
   let zombieBornArray = [];
   for (let $e = 0; $e < 7; $e++) {
-    zombieBornArray.push(Ellie_spirit + "zombie_born_" + ($e + 1) + ".png");
+    zombieBornArray.push(filePath + "zombie_born_" + ($e + 1) + ".png");
   }
 
   let zombieDieArray = [];
   for (let $e = 0; $e < 7; $e++) {
-    zombieDieArray.push(Ellie_spirit + "zombie_die_" + ($e + 1) + ".png");
+    zombieDieArray.push(filePath + "zombie_die_" + ($e + 1) + ".png");
   }
   //arrow key
   let left = keyboard(65),
@@ -158,12 +200,12 @@ function setup() {
 
   // let Ellie = new PIXI.Sprite(PIXI.loader.resources["Ellie/Frames/Ellie frame_idle_0.png"].texture);
   Ellie = new PIXI.extras.AnimatedSprite.fromImages(idleArray);
-  ellieRun = new PIXI.extras.AnimatedSprite.fromImages(run_array);
-  ellieShoot = new PIXI.extras.AnimatedSprite.fromImages(shoot_array);
-  Ellie_aim = new PIXI.extras.AnimatedSprite.fromImages(aim_array);
-  Ellie_die = new PIXI.extras.AnimatedSprite.fromImages(die_array);
-  zombie_stand = new PIXI.extras.AnimatedSprite.fromImages(zombie_array);
-  zombie_attack = new PIXI.extras.AnimatedSprite.fromImages(zombie_attack_array);
+  ellieRun = new PIXI.extras.AnimatedSprite.fromImages(runArray);
+  ellieShoot = new PIXI.extras.AnimatedSprite.fromImages(shootArray);
+  ellieAim = new PIXI.extras.AnimatedSprite.fromImages(aimArray);
+  elliedie = new PIXI.extras.AnimatedSprite.fromImages(dieArray);
+  zombie_stand = new PIXI.extras.AnimatedSprite.fromImages(zombieArray);
+  zombie_attack = new PIXI.extras.AnimatedSprite.fromImages(zombieAttackArray);
   zombie_born = new PIXI.extras.AnimatedSprite.fromImages(zombieBornArray);
   zombie_die = new PIXI.extras.AnimatedSprite.fromImages(zombieDieArray);
   app.stage.addChild(Ellie);
@@ -238,7 +280,7 @@ function setup() {
       ellieShoot.animationSpeed = 0.1;
       ellieShoot.play();
       app.stage.removeChild(Ellie);
-      app.stage.removeChild(Ellie_aim);
+      app.stage.removeChild(ellieAim);
       app.stage.addChild(ellieShoot);
       ellieShoot.position.set(500, 300);
       console.log('test');
@@ -259,11 +301,11 @@ function setup() {
   //aim
   aim.press = () => {
     if (!right.isDown) {
-      app.stage.addChild(Ellie_aim);
-      Ellie_aim.animationSpeed = 0.1;
-      Ellie_aim.position.set(500, 300);
+      app.stage.addChild(ellieAim);
+      ellieAim.animationSpeed = 0.1;
+      ellieAim.position.set(500, 300);
       app.stage.removeChild(Ellie);
-      Ellie_aim.play();
+      ellieAim.play();
     }
 
   };
@@ -271,7 +313,7 @@ function setup() {
   aim.release = () => {
 
     if (!space.isDown) {
-      app.stage.removeChild(Ellie_aim);
+      app.stage.removeChild(ellieAim);
       app.stage.addChild(Ellie);
     }
 
@@ -349,41 +391,6 @@ function play(delta) {
 
 }
 
-//The code snippet below has been sourced from
-//https://github.com/kittykatattack/learningPixi
-//The code snippet appears in its original form
 
-function keyboard(keyCode) {
-  let key = {};
-  key.code = keyCode;
-  key.isDown = false;
-  key.isUp = true;
-  key.press = undefined;
-  key.release = undefined;
-
-  key.downHandler = event => {
-    if (event.keyCode === key.code) {
-      if (key.isUp && key.press) key.press();
-      key.isDown = true;
-      key.isUp = false;
-    }
-    event.preventDefault();
-  };
-
-  key.upHandler = event => {
-    if (event.keyCode === key.code) {
-      if (key.isDown && key.release) key.release();
-      key.isDown = false;
-      key.isUp = true;
-    }
-    event.preventDefault();
-  };
-
-  window.addEventListener("keydown", key.downHandler.bind(key), false);
-  window.addEventListener("keyup", key.upHandler.bind(key), false);
-  return key;
-
-
-}
 
 // End code snippet
