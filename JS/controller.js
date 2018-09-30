@@ -1,3 +1,7 @@
+/*global someFunction ellieRun:true*/
+/*global someFunction app:true*/
+/*eslint no-undef: "error"*/
+
 
 function goLeft(){
   ellieRun.vx -= 5;
@@ -38,6 +42,6 @@ var ctx = can.getContext("2d");
 function guess(classId) {
     app.stage.addChild(ellieRun);
     console.log(classId);
-    classId == 0 ? goLeft():goRight();
+    classId === 0 ? goLeft():goRight();
 
 }
