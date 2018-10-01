@@ -1,16 +1,15 @@
-/*global someFunction ellieRun:true*/
-/*global someFunction app:true*/
+
+/*global someFunction ellierun:true*/
 /*eslint no-undef: "error"*/
 
-
 function goLeft(){
-  ellieRun.vx -= 5;
-  ellieRun.vy = 0;
-  ellieRun.scale.x = -1;
-  ellieRun.animationSpeed = 0.1;
-  ellieRun.play();
-  ellieRun.position.set(Ellie.position.x,Ellie.position.y);
-  ellieRun.x -= 5;
+  ellierun.vx -= 5;
+  ellierun.vy = 0;
+  ellierun.scale.x = -1;
+  ellierun.animationSpeed = 0.1;
+  ellierun.play();
+  ellierun.position.set(Ellie.position.x,Ellie.position.y);
+  ellierun.x -= 5;
 
   app.stage.removeChild(Ellie);
 
@@ -18,21 +17,37 @@ function goLeft(){
 
 
 function goRight(){
-  ellieRun.vx += 5;
-  ellieRun.vy = 0;
-  ellieRun.scale.x = 1;
-  ellieRun.animationSpeed = 0.1;
-  ellieRun.play();
-  ellieRun.position.set(Ellie.position.x,Ellie.position.y);
-  ellieRun.x += 5;
+  ellierun.vx += 5;
+  ellierun.vy = 0;
+  ellierun.scale.x = 1;
+  ellierun.animationSpeed = 0.1;
+  ellierun.play();
+  ellierun.position.set(Ellie.position.x,Ellie.position.y);
+  ellierun.x += 5;
 
   app.stage.removeChild(Ellie);
 
 }
 
+function shoot(){
+  ellierun.vx = 5;
+  ellierun.vy = 0;
+  ellieshoot.animationSpeed = 0.1;
+  ellieshoot.play();
+  app.stage.removeChild(Ellie);
+  app.stage.removeChild(ellieaim);
+  app.stage.addChild(ellieshoot);
+  ellieshoot.position.set(Ellie.position.x,Ellie.position.y);
 
-function aim(){}
-function shoot(){}
+}
+
+function aim(){app.stage.addChild(ellieaim);
+ellieaim.animationSpeed = 0.1;
+ellieaim.position.set(Ellie.position.x,Ellie.position.y);
+app.stage.removeChild(Ellie);
+ellieaim.play();}
+
+
 // import * as tf from '@tensorflow/tfjs';
 
 var can = document.getElementById("myCanvas");
@@ -40,8 +55,8 @@ var ctx = can.getContext("2d");
 
 
 function guess(classId) {
-    app.stage.addChild(ellieRun);
+    app.stage.addChild(ellierun);
     console.log(classId);
-    classId === 0 ? goLeft():goRight();
+    classId === 0 ? aim():goRight();
 
 }
