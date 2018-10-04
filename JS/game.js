@@ -222,42 +222,40 @@ function setup() {
   Ellie.vx = 0;
   Ellie.vy = 0;
 
-  app.stage.addChild(zombie_die);
+
 
   zombie_die.animationSpeed = 0.1;
-  zombie_die.position.set(1100, 200);
+  zombie_die.position.set(1300, 200);
   zombie_die.width = 480;
   zombie_die.height = 480;
 
-  zombie_die.play();
-
-  app.stage.addChild(zombie_stand);
-  app.stage.addChild(zombie_born);
-
-  zombie_born.animationSpeed = 0.05;
-  zombie_born.position.set(1300, 200);
-  zombie_born.width = 480;
-  zombie_born.height = 480;
-
-  zombie_born.play();
+  //
+  //
+  //
+  //
+  // zombie_born.animationSpeed = 0.05;
+  // zombie_born.position.set(1300, 200);
+  // zombie_born.width = 480;
+  // zombie_born.height = 480;
+  //   app.stage.addChild(zombie_born);
+  // zombie_born.play();
 
   zombie_stand.animationSpeed = 0.1;
-  zombie_stand.position.set(1500, 200);
+  zombie_stand.position.set(1300, 200);
   zombie_stand.width = 480;
   zombie_stand.height = 480;
 
-  zombie_stand.play();
 
 
 
-  app.stage.addChild(zombie_attack);
-
-  zombie_attack.animationSpeed = 0.1;
-  zombie_attack.position.set(1200, 200);
-  zombie_attack.width = 480;
-  zombie_attack.height = 480;
-
-  zombie_attack.play();
+  // app.stage.addChild(zombie_attack);
+  //
+  // zombie_attack.animationSpeed = 0.1;
+  // zombie_attack.position.set(1300, 200);
+  // zombie_attack.width = 480;
+  // zombie_attack.height = 480;
+  //
+  // zombie_attack.play();
 
 
 
