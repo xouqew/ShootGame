@@ -223,7 +223,6 @@ function setup() {
   Ellie.vy = 0;
 
 
-
   zombie_die.animationSpeed = 0.1;
   zombie_die.position.set(1300, 200);
   zombie_die.width = 480;
@@ -384,8 +383,10 @@ function hitTestRectangle(r1, r2) {
 function play(delta) {
   ellierun.x += ellierun.vx;
   ellierun.x += ellierun.vy;
+  if (hitTestRectangle(ellierun,zombie_stand)) {
 
-
+      alert("die");
+    }
 
 }
 

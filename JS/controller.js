@@ -28,6 +28,7 @@ function goRight(){
   ellierun.play();
   ellierun.position.set(Ellie.position.x,Ellie.position.y);
   ellierun.x += 5;
+  zombie_stand.x -=1;
 
   app.stage.removeChild(Ellie);
   app.stage.removeChild(ellieaim);
@@ -75,6 +76,7 @@ var ctx = can.getContext("2d");
 function guess(classId) {
   app.stage.addChild(zombie_stand);
   zombie_stand.play();
+
     app.stage.addChild(ellierun);
     console.log(classId);
     switch(classId){

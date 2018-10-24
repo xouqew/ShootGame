@@ -149,8 +149,8 @@ leftButton.addEventListener("mouseup", () => mouseDown = false);
 rightButton.addEventListener("mousedown", () => handler(1));
 rightButton.addEventListener("mouseup", () => mouseDown = false);
 
-upButton.addEventListener("mousedown", () => handler(2));
-upButton.addEventListener("mouseup", () => mouseDown = false);
+// upButton.addEventListener("mousedown", () => handler(2));
+// upButton.addEventListener("mouseup", () => mouseDown = false);
 
 downButton.addEventListener("mousedown", () => handler(3));
 downButton.addEventListener("mouseup", () => mouseDown = false);
